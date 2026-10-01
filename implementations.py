@@ -89,7 +89,7 @@ def compute_gradient_reg_bce(y: np.ndarray, tx: np.ndarray, w: np.ndarray, lambd
         Gradient of the binary cross-entropy loss with respect to `w`,
         with shape (D,).
     """
-    gradient = compute_gradient_bce(y, tx, w) + 2 * lambda_ * w
+    gradient = compute_gradient_bce(y, tx, w) + lambda_ * w
     return gradient
 
 

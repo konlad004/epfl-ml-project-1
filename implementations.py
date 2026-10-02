@@ -1,6 +1,29 @@
 import numpy as np
 
 def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
+    """
+    Linear regression using gradient descent.
+
+    Parameters
+    ----------
+    y: np.ndarray
+        Target values of shape (N,).
+    tx: np.ndarray
+        Feature matrix of shape (N, D).
+    initial_w: np.ndarray
+        Initial weight vector of shape (D,).
+    max_iters: int
+        Number of gradient descent iterations.
+    gamma: float
+        Learning rate.
+
+    Returns
+    ----------
+    w: np.ndarray
+        Final weight vector of shape (D,).
+    loss: float
+        Mean squared error loss.
+    """
     w = initial_w.copy()
     N = len(y)
 
@@ -15,6 +38,30 @@ def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
     return (w, loss)
 
 def mean_squared_error_sgd(y, tx, initial_w, max_iters, gamma):
+    """
+    Linear regression using stochastic gradient descent with batch size = 1.
+
+    Parameters
+    ----------
+    y: np.ndarray
+        Target values of shape (N,).
+    tx: np.ndarray
+        Feature matrix of shape (N, D).
+    initial_w: np.ndarray
+        Initial weight vector of shape (D,).
+    max_iters: int
+        Number of gradient descent iterations.
+    gamma: float
+        Learning rate.
+
+    Returns
+    ----------
+    w: np.ndarray
+        Final weight vector of shape (D,).
+    loss: float
+        Mean squared error loss.
+
+    """
     w = initial_w.copy()
     N = len(y)
 

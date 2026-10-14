@@ -140,6 +140,7 @@ def ridge_regression(y : np.ndarray, tx : np.ndarray, lambda_ : float) -> tuple[
     w = np.linalg.solve(tx.T @ tx + (lambda_ * (2*N)) * np.identity(tx.shape[1]), tx.T @ y)
     txw = tx @ w
     loss = 1/(2*N)*(y- txw).T @ (y- txw)
+    return w, loss
     
   
 def sigmoid(x: np.ndarray):

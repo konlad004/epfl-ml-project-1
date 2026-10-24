@@ -1,4 +1,9 @@
 Data/
+.python-version
+data_exploration.ipynb
+uv.lock
+pyproject.toml
+src/
 
 
 

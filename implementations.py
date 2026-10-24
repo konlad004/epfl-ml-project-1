@@ -1,7 +1,9 @@
 import numpy as np
 
 
-def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
+def mean_squared_error_gd(
+    y: np.ndarray, tx: np.ndarray, initial_w: np.ndarray, max_iters: int, gamma: float
+) -> tuple[np.ndarray, float]:
     """
     Compute linear regression using gradient descent.
 
@@ -39,7 +41,9 @@ def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
     return (w, loss)
 
 
-def mean_squared_error_sgd(y, tx, initial_w, max_iters, gamma):
+def mean_squared_error_sgd(
+    y: np.ndarray, tx: np.ndarray, initial_w: np.ndarray, max_iters: int, gamma: float
+) -> tuple[np.ndarray, float]:
     """
     Compute linear regression using stochastic gradient descent with batch size = 1.
 

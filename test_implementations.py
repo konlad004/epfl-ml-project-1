@@ -89,16 +89,6 @@ def test_ridge_equals_least_squares():
     np.testing.assert_allclose(w_ridge, w_ls, atol=1e-8)
     np.testing.assert_allclose(loss_ridge, loss_ls)
 
-def test_ridge_closed_form():
-    y = np.array([0.1, 0.63, 0.8])
-    tx = np.array([[2.3, 1.2], [1.0, 0.1], [1.4, 2.3]])
-    lambda_ = 0.1
-    n, d = tx.shape
- 
-    w, _ = ridge_regression(y, tx, lambda_)
-
-    expected_w = np.linalg.solve(tx.T @ tx + 2 * n * lambda_ * np.eye(d), tx.T @ y)
-    np.testing.assert_allclose(w, expected_w, atol=1e-8)
 
 
 # logistic

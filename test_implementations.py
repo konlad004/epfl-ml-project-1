@@ -117,7 +117,7 @@ def test_logistic_reg_single_step():
     gamma = 0.7
     lambda_ = 0.3
 
-    grad = tx.T @ (sigmoid(tx @ w0) - y) / len(y) +  lambda_ * w0
+    grad = tx.T @ (sigmoid(tx @ w0) - y) / len(y) + 2 * lambda_ * w0
     expected_w = w0 - gamma * grad
 
     w, loss = reg_logistic_regression(y, tx, lambda_, w0, 1, gamma)

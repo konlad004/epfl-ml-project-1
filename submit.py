@@ -1,6 +1,6 @@
 from pathlib import Path
 import argparse
-from aicrowd.submission.create import ConfigContext, submit_file
+from aicrowd.submission.create import submit_file
 import os
 from dotenv import load_dotenv
 
@@ -21,8 +21,6 @@ def submit(submission_file: Path, api_key: str, challenge: str='epfl-machine-lea
     """
     submission_file = submission_file.resolve()
     metadata_file = submission_file.with_suffix('.json')
-    config_ctx = ConfigContext()
-    config_ctx.config.set('aicrowd_api_key', api_key)
     result = submit_file(challenge_slug=challenge, file_path=str(submission_file), description='', api_key=api_key, print_links=False)
     submission_id = result['submission_id']
     submission_file.rename(submission_file.with_name(f'submission_{submission_id}.csv'))

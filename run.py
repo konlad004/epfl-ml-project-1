@@ -32,6 +32,37 @@ METHODS = [
 
 
 def train_model(method: str, y: np.ndarray, x: np.ndarray, max_iters: int, gamma: float, lambda_: float):
+    """
+    Train a model using the specified method.
+
+    Parameters
+    ----------
+    method : str
+        Name of the training method to use. Must be one of METHODS.
+    y : np.ndarray
+        Training labels of shape (n_samples,).
+    x : np.ndarray
+        Training feature matrix of shape (n_samples, n_features).
+    max_iters : int
+        Maximum number of iterations for iterative optimization methods.
+    gamma : float
+        Learning rate for gradient-based optimization methods.
+    lambda_ : float
+        Regularization strength for regularized regression methods.
+
+    Returns
+    -------
+    weights : np.ndarray
+        Learned model weights of shape (n_features,).
+    loss : float
+        Final training loss returned by the selected method.
+
+    Raises
+    ------
+    NotImplementedError
+        If the specified method is not implemented
+    """
+
     if method =='mean_squared_error_gd':
         return mean_squared_error_gd(y, x, np.zeros(x.shape[1]), max_iters, gamma)
     if method =='mean_squared_error_sgd':
@@ -46,10 +77,26 @@ def train_model(method: str, y: np.ndarray, x: np.ndarray, max_iters: int, gamma
     if method =='reg_logistic_regression':
         # Same conversion as in logistic regression.
         return reg_logistic_regression((y == 1).astype(np.int64), x, lambda_, np.zeros(x.shape[1]), max_iters, gamma)
-    raise ValueError(f'Method {method} not implemented!')
+    raise NotImplementedError(f'Method {method} not implemented!')
 
 
 def predict(y_pred: float, threshold: float) -> np.ndarray:
+    """
+    Convert model predictions into binary class labels.
+
+    Parameters
+    ----------
+    y_pred : np.ndarray
+        Raw model predictions or scores.
+    threshold : float
+        Decision threshold used for binary classification.
+
+    Returns
+    -------
+    np.ndarray
+        Predicted labels, where values strictly greater than the threshold are assigned 1 and all other values are assigned -1.
+    """
+     
     return np.where(y_pred > threshold, 1, -1)
 
 

@@ -3,6 +3,7 @@ import argparse
 from aicrowd.submission.create import submit_file
 import os
 from dotenv import load_dotenv
+import json
 
 
 def submit(submission_file: Path, api_key: str, challenge: str='epfl-machine-learning-project-1'):
@@ -23,8 +24,15 @@ def submit(submission_file: Path, api_key: str, challenge: str='epfl-machine-lea
     metadata_file = submission_file.with_suffix('.json')
     result = submit_file(challenge_slug=challenge, file_path=str(submission_file), description='', api_key=api_key, print_links=False)
     submission_id = result['submission_id']
-    submission_file.rename(submission_file.with_name(f'submission_{submission_id}.csv'))
-    metadata_file.rename(metadata_file.with_name(f'submission_{submission_id}.json'))
+    new_csv_name = f'submission_{submission_id}.csv'
+    new_json_name = f'submission_{submission_id}.json'
+    with open(metadata_file, 'r') as f:
+        metadata = json.load(f)
+    metadata['output_name'] = new_csv_name
+    with open(metadata_file, 'w') as f:
+        json.dump(metadata, f, indent=4)
+    submission_file.rename(submission_file.with_name(new_csv_name))
+    metadata_file.rename(metadata_file.with_name(new_json_name))
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ def submit(submission_file: Path, api_key: str, challenge: str='epfl-machine-lea
     api_key : str
         The AIcrowd API key.
     challenge : str
-        The name of the challenge as required by `aicrowd.submission.create.create_submission`
+        The name of the challenge as required by `aicrowd.submission.create.submit_file`
 
     """
     submission_file = submission_file.resolve()

@@ -6,7 +6,6 @@ from implementations import (
     least_squares,
     ridge_regression,
     sigmoid,
-    compute_gradient_reg_bce,
     compute_loss_bce,
     logistic_regression,
     reg_logistic_regression,

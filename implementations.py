@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import trange
 
 
 def mean_squared_error_gd(
@@ -30,7 +31,7 @@ def mean_squared_error_gd(
     w = initial_w.copy()
     N = len(y)
 
-    for _ in range(max_iters):
+    for _ in trange(max_iters):
         e = y - np.dot(tx, w)
         gradient = -1 / N * np.dot(tx.T, e)
         w = w - gamma * gradient
@@ -71,7 +72,7 @@ def mean_squared_error_sgd(
     w = initial_w.copy()
     N = len(y)
 
-    for _ in range(max_iters):
+    for _ in trange(max_iters):
         n = np.random.randint(N)
         x_b = tx[n]
         y_b = y[n]
@@ -272,7 +273,7 @@ def logistic_regression(
     """
     w = initial_w.copy()
 
-    for _ in range(max_iters):
+    for _ in trange(max_iters):
         gradient = compute_gradient_bce(y, tx, w)
         w = w - gamma * gradient
 
@@ -318,7 +319,7 @@ def reg_logistic_regression(
     """
     w = initial_w.copy()
 
-    for _ in range(max_iters):
+    for _ in trange(max_iters):
         gradient = compute_gradient_reg_bce(y, tx, w, lambda_)
         w = w - gamma * gradient
 

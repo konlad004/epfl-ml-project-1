@@ -14,6 +14,8 @@ from implementations import (
     reg_logistic_regression
 )
 from datetime import datetime, timezone
+from feature_engineering import preprocess, load_feature_names
+
 
 # This is to keep track of submission/configuration file pairs
 file_suffix = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
@@ -51,30 +53,6 @@ def predict(y_pred: float, threshold: float) -> np.ndarray:
     return np.where(y_pred > threshold, 1, -1)
 
 
-def preprocess(x_train, x_test):
-    # Replace nans with respective means of training set columns
-    means = np.nanmean(x_train, axis=0)
-    x_train = np.where(np.isnan(x_train), means, x_train)
-    x_test = np.where(np.isnan(x_test), means, x_test)
-
-    # Remove constant columns
-    std = np.std(x_train, axis=0)
-    x_train = x_train[:, std > 1e-12]
-    x_test = x_test[:, std > 1e-12]
-
-    # Standardize
-    means = np.mean(x_train, axis=0)
-    std = np.std(x_train, axis=0)
-    x_train = (x_train - means) / std
-    x_test = (x_test - means) / std
-
-    # Add intercept
-    x_train = np.c_[np.ones(len(x_train)), x_train]
-    x_test = np.c_[np.ones(len(x_test)), x_test]
-
-    return x_train, x_test
-
-
 def create_metadata_file(args, loss, path):
     metadata = {
         **{k: v for k, v in args.__dict__.items() if k not in ("data_dir", "output_dir")}, 
@@ -104,8 +82,8 @@ if __name__ == '__main__':
     os.makedirs(args.output_dir, exist_ok=True)
     x_train, x_test, y_train, train_ids, test_ids = load_csv_data(args.data_dir)
     
-    # TODO: Proper preprocessing of the data!
-    x_train, x_test = preprocess(x_train, x_test)
+    names = load_feature_names(args.data_dir)
+    x_train, x_test, _ = preprocess(x_train, x_test, names)
     
     weights, loss = train_model(args.method, y_train, x_train, args.max_iters, args.gamma, args.lambda_)
     y_pred = predict(x_test @ weights, args.pred_threshold)

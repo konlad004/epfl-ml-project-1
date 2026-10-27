@@ -19,7 +19,7 @@ Optional tools used only by `submit.py` are listed in `requirements.txt` file.
 The following command writes the submission CSV and a JSON file with the parameters to `Data/results/`.
 
 ```bash
-python run.py --method reg_logistic_regression --lambda_ hyperparameter_value --gamma hyperparameter_value --max_iters hyperparameter_value --pred_threshold hyperparameter_value
+python run.py --method reg_logistic_regression --lambda_ 0.0001 --gamma 0.5 --max_iters 1000 --pred_threshold -1.35
 ```
 
 ## Files
@@ -43,15 +43,21 @@ All statistics are computed on the training set only:
     - fill missing values with the median and add a missing indicator column
     - standardize and add a bias column
 2. Model - regularized logistic regression with gradient descent
-3. (To add) Model selection - k-fold cross-validation over lambda, then the decision threshold that maximizes F1 on validation 
+3. Model selection - stratified 80/20 validation set over lambda, then the decision threshold that maximizes F1 on validation 
 
 
 ## Results
 
 | Model | Validation F1 | AIcrowd F1 |
 |---|---|---|
-| baseline median and standardization | real value | real value |
-| Regularized logistic regression and feature engineering | real value | real value |
+| Regularized logistic regression baseline median and standardization | -- | 0.412 |
+| Regularized logistic regression and feature engineering (best overall validation configuration)| **0.43998** | 0.451 |
+| Regularized logistic regression and feature engineering (manual configuration)| 0.4394 | **0.452** |
+| Ridge regression and feature engineering (validation configuration)| 0.429 | 0.439 |
+
+
+The configuration achieving the highest local validation F1 did not achieve the highest AIcrowd F1. A configuration ranked third during validation produced a higher leaderboard score. Both configurations are reported to compare validation performance with performance on the competition test set.
+
 
 ## Contributors
 - Konstantinos LADAKIS

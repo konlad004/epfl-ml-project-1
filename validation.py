@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from helpers import load_csv_data
 from feature_engineering import preprocess, load_feature_names
 from run import train_model, predict
-import pandas as pd
+import pandas as pd #added only for csv export
 
 
 file_suffix = datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')

@@ -32,6 +32,7 @@ python run.py --method reg_logistic_regression --lambda_ 0.0001 --gamma 0.5 --ma
 | `helpers.py` | CSV loading and submission writing from the course sources |
 | `test_implementations.py` | Unit tests for `implementations.py` |
 | `submit.py` | Upload script for submissions via the AIcrowd API (It is optional and requires `aicrowd-cli` and `python-dotenv` additionally) |
+| `validation.py` | Trains and evaluates different model configurations on a stratified 80/20 train-validation set |
 
 
 ## Pipeline

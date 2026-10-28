@@ -43,6 +43,7 @@ def test_gd_perfect_start():
     np.testing.assert_allclose(w, w_true)
     assert loss == pytest.approx(0.0, abs=1e-12)
 
+
 # SGD
 
 
@@ -95,7 +96,7 @@ def test_ridge_equals_least_squares():
 def test_ridge_lambda_one():
     # values from the main tests
     y = np.array([0.1, 0.2])
-    tx =  np.array([[2.3, 3.2], [1., 0.1]])
+    tx = np.array([[2.3, 3.2], [1.0, 0.1]])
 
     w, loss = ridge_regression(y, tx, 1.0)
 
@@ -103,6 +104,7 @@ def test_ridge_lambda_one():
     np.testing.assert_allclose(loss, 0.0064170226, rtol=1e-4)
     assert w.shape == (2,)
     assert np.ndim(loss) == 0
+
 
 # logistic
 
@@ -145,7 +147,7 @@ def test_reg_logistic_official_values():
     y = np.array([0.0, 0.0, 1.0, 1.0])
     tx = np.array([[0.1, 0.4], [0.7, 0.2], [0.0, 0.1], [1.2, 0.7]])
     w0 = np.array([0.2, 0.5])
-    
+
     w, loss = reg_logistic_regression(y, tx, 0.5, w0, 3, 0.1)
 
     np.testing.assert_allclose(w, [0.145983, 0.363036], rtol=1e-4)
